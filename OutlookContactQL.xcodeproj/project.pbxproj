@@ -7,17 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9C251B281A1EDDC20064C634 /* GenerateThumbnailForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.c */; };
-		9C251B2A1A1EDDC20064C634 /* GeneratePreviewForURL.c in Sources */ = {isa = PBXBuildFile; fileRef = 9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.c */; };
+		9C251B281A1EDDC20064C634 /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.m */; };
+		9C251B2A1A1EDDC20064C634 /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.m */; };
 		9C251B2C1A1EDDC20064C634 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9C251B2B1A1EDDC20064C634 /* main.c */; };
+		9C251B341A1EE0CC0064C634 /* template.html in Resources */ = {isa = PBXBuildFile; fileRef = 9C251B331A1EE0CC0064C634 /* template.html */; };
+		9C251B351A1EE6330064C634 /* OutlookContactQL.qlgenerator in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9C251B221A1EDDC20064C634 /* OutlookContactQL.qlgenerator */; };
+		9C251B371A1F7CC40064C634 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 9C251B361A1F7CC40064C634 /* style.css */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9C251B321A1EDECC0064C634 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "~/Library/QuickLook";
+			dstSubfolderSpec = 0;
+			files = (
+				9C251B351A1EE6330064C634 /* OutlookContactQL.qlgenerator in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9C251B221A1EDDC20064C634 /* OutlookContactQL.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OutlookContactQL.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C251B261A1EDDC20064C634 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GenerateThumbnailForURL.c; sourceTree = "<group>"; };
-		9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = GeneratePreviewForURL.c; sourceTree = "<group>"; };
+		9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GenerateThumbnailForURL.m; sourceTree = "<group>"; };
+		9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GeneratePreviewForURL.m; sourceTree = "<group>"; };
 		9C251B2B1A1EDDC20064C634 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9C251B331A1EE0CC0064C634 /* template.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template.html; sourceTree = "<group>"; };
+		9C251B361A1F7CC40064C634 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +68,9 @@
 		9C251B241A1EDDC20064C634 /* OutlookContactQL */ = {
 			isa = PBXGroup;
 			children = (
-				9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.c */,
-				9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.c */,
+				9C251B381A1F7CCB0064C634 /* Resources */,
+				9C251B271A1EDDC20064C634 /* GenerateThumbnailForURL.m */,
+				9C251B291A1EDDC20064C634 /* GeneratePreviewForURL.m */,
 				9C251B2B1A1EDDC20064C634 /* main.c */,
 				9C251B251A1EDDC20064C634 /* Supporting Files */,
 			);
@@ -64,6 +83,15 @@
 				9C251B261A1EDDC20064C634 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C251B381A1F7CCB0064C634 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9C251B361A1F7CC40064C634 /* style.css */,
+				9C251B331A1EE0CC0064C634 /* template.html */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +115,7 @@
 				9C251B1E1A1EDDC20064C634 /* Frameworks */,
 				9C251B1F1A1EDDC20064C634 /* Headers */,
 				9C251B201A1EDDC20064C634 /* Resources */,
+				9C251B321A1EDECC0064C634 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -133,6 +162,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C251B341A1EE0CC0064C634 /* template.html in Resources */,
+				9C251B371A1F7CC40064C634 /* style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +174,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C251B281A1EDDC20064C634 /* GenerateThumbnailForURL.c in Sources */,
-				9C251B2A1A1EDDC20064C634 /* GeneratePreviewForURL.c in Sources */,
+				9C251B281A1EDDC20064C634 /* GenerateThumbnailForURL.m in Sources */,
+				9C251B2A1A1EDDC20064C634 /* GeneratePreviewForURL.m in Sources */,
 				9C251B2C1A1EDDC20064C634 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
