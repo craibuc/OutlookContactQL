@@ -8,25 +8,24 @@
 <head>
   <body>
     <div id="title">
-        <div id="subjectname">
-            <h2>{SUBJECT_NAME}</h2>
+        <div id="display_name">
+            <h1>__kMDItemDisplayName__</h1>
+            <h2>__com_microsoft_outlook_company__</h2>
+            <h2>__com_microsoft_outlook_jobTitle__</h2>
 		</div>
-        <div id="from"><p><strong>From</strong> {FROM_INFO}<br>
+        <div id="telephone"><p><strong>Telephones:</strong>__kMDItemPhoneNumbers__<br>
         </div>
-        <div id="to">
-          <p><strong>To</strong> {TO_INFO}<br>
+        <div id="email">
+            <p><strong>Emails:</strong>__kMDItemEmailAddresses__<br>
         </div>
-        <div id="cc">
-            <p><strong>cc </strong>{CC_INFO}<br>
-        </div>
-        <div id="daterec">
-            <p><strong>Received date</strong> {DATE_REC}<br>
-        <div id="datesent">
-            <p><strong>Sent date</strong> {DATE_SENT}<br>
+        <div id="birthday">
+            <p><strong>Birthday:</strong>__com_microsoft_outlook_birthday__<br>
         </div>
         <div class="textwrapper">
-        <label for="messagebody" id="messagebodyLabel"><h2><strong>Message</strong></label>
-        {BODY_MSG} 
-	</div>
+        <label for="messagebody" id="messagebodyLabel">
+            <strong>Notes</strong>
+        </label>
+        __com_microsoft_outlook_notes__
+    </div>
 </body>
 </html>
