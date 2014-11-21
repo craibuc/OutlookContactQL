@@ -24,3 +24,4 @@ It uses the `mdls` metadata associated with a contact's file (`*.olk14Contact`) 
 
 * List of [QLPlugins](http://www.qlplugins.com/)
 * Instructions for [creating a QuickLook plugin](http://blog.10to1.be/cocoa/2012/01/27/creating-a-quick-look-plugin/)
+* [Outlook Item (.msg) File Format](http://msdn.microsoft.com/en-us/library/cc463912%28v=exchg.80%29.aspx)
