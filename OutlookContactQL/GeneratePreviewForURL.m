@@ -2,6 +2,7 @@
 #include <CoreServices/CoreServices.h>
 #include <Cocoa/Cocoa.h>
 #include <QuickLook/QuickLook.h>
+#include <Contact.h>
 
 OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview, CFURLRef url, CFStringRef contentTypeUTI, CFDictionaryRef options);
 void CancelPreviewGeneration(void *thisInterface, QLPreviewRequestRef preview);
@@ -21,82 +22,93 @@ OSStatus GeneratePreviewForURL(void *thisInterface, QLPreviewRequestRef preview,
             return noErr;
         }
 
-    //    NSString *file = @"/Users/craibuc/Projects/xcode/OutlookContactQL/x01_29716.olk14Contact";
-    //    NSData *data = [NSData dataWithContentsOfFile: file];
-
-    //    NSString *_content = [NSString stringWithContentsOfURL:(__bridge NSURL *)url encoding:NSUTF8StringEncoding error:nil];
-    
-        //
-        // get file's metadata via shell ($ mdls <filepath>)
-        //
-        NSURL *filepath = (__bridge NSURL *)(url);
-        
-        NSPipe *pipe = [NSPipe pipe];
-        NSFileHandle *file = pipe.fileHandleForReading;
-
-        NSTask *task = [[NSTask alloc] init];
-        task.launchPath = @"/usr/bin/mdls";
-        task.arguments = @[filepath];
-        task.standardOutput = pipe;
-
-        [task launch];
-
-        NSData *data = [file readDataToEndOfFile];
-        [file closeFile];
-
-        //
-        // convert to string
-        //
-        NSString *_content = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-
-        //
-        // return simple representation
-        //
-        QLPreviewRequestSetDataRepresentation(
-              preview,
-              (__bridge CFDataRef)[_content dataUsingEncoding:NSUTF8StringEncoding],
-              kUTTypePlainText,
-              NULL
-          );
-        
-        //
-        // convert string to dictionary
-        //
-//        NSDictionary *dictionary = [NSDictionary dictionaryWithContentsOfFile: _content];
+        Contact *contact = [Contact openFromUrl: (__bridge NSURL *)(url)];
+        NSDictionary *dictionary = [contact dictionary];
 
         //
         // load HTML template from Resources folder
         //
-//        NSURL *htmlURL = [[NSBundle bundleWithIdentifier: @"com.cogniza.OutlookContactQL"] URLForResource:@"template" withExtension:@"html"];
-//        NSMutableString *html = [NSMutableString stringWithContentsOfURL:htmlURL encoding:NSUTF8StringEncoding error:NULL];
-//        NSString *html = @"<html><head><title>FIRST LAST</title></head><body><h1>First Last</h1></body></html>";
-        
+        NSURL *htmlURL = [[NSBundle bundleWithIdentifier: @"com.cogniza.OutlookContactQL"] URLForResource:@"template" withExtension:@"html"];
+        NSMutableString *html = [NSMutableString stringWithContentsOfURL:htmlURL encoding:NSUTF8StringEncoding error:NULL];
+
         //
         // replace template's variables with values from dictionary
         //
+        for (NSString *key in [dictionary allKeys]) {
+            
+            NSString *token = [NSString stringWithFormat:@"__%@__", key];
+            NSString *replacementValue = nil;
+            
+            @try {
+                
+                if ( [[dictionary objectForKey:key] isKindOfClass:[NSString class]] ) {
 
+                    replacementValue = [dictionary objectForKey:key];
+                    
+                }
+                else if ([[dictionary objectForKey:key] isKindOfClass:[NSArray class]]) {
+                    replacementValue = [[dictionary objectForKey: key] componentsJoinedByString:@"<br/>"];
+                }
+                
+//                [replacementValue replaceOccurrencesOfString:@"\n" withString: @""];
+                
+//                NSString *replacementValue = [dictionary objectForKey:key];
+//                NSString *replacementToken = [NSString stringWithFormat:@"__%@__", key];
+                
+                [html replaceOccurrencesOfString:token withString:replacementValue options:0 range:NSMakeRange(0, [html length])];
+            }
+            @catch (NSException *exception) {
+                // ignore exceptions to allow processing to continue
+            }
+    
+        }
+        
         // set HTML metadata
-//        NSDictionary *properties = @{
-//             (__bridge NSString *)kQLPreviewPropertyTextEncodingNameKey : @"UTF-8",
-//             (__bridge NSString *)kQLPreviewPropertyMIMETypeKey : @"text/html"
-//        };
+        NSDictionary *properties = @{
+             (__bridge NSString *)kQLPreviewPropertyTextEncodingNameKey : @"UTF-8",
+             (__bridge NSString *)kQLPreviewPropertyMIMETypeKey : @"text/html"
+        };
 
         //
         // return Preview
         //
-//        QLPreviewRequestSetDataRepresentation(
-//            preview,
-//            (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
-//            kUTTypeHTML,
-//            (__bridge CFDictionaryRef)properties)
-//        ;
+        QLPreviewRequestSetDataRepresentation(
+            preview,
+            (__bridge CFDataRef)[html dataUsingEncoding:NSUTF8StringEncoding],
+            kUTTypeHTML,
+            (__bridge CFDictionaryRef)properties
+        );
         
     }
 
     return noErr;
 }
 
+//- (NSString*) formatHTML: (NSDictionary *) dict {
+//
+//    NSMutableString *html=[[NSMutableString alloc] init];
+//    
+//    [html appendString:@"<html>"];
+//    [html appendString:@"<body>"];
+//    [html appendString:@"<h1>"];
+//    [html appendString: [dictionary valueForKey:@"kMDItemDisplayName"]];
+//    [html appendString:@"</h1>"];
+//    [html appendString:@"</body>"];
+//    [html appendString:@"</html>"];
+//
+//    //
+//    // load HTML template from Resources folder
+//    //
+//    
+//
+//    //        NSURL *htmlURL = [[NSBundle bundleWithIdentifier: @"com.cogniza.OutlookContactQL"] URLForResource:@"template" withExtension:@"html"];
+//    return html;
+//
+//}
+
 void CancelPreviewGeneration(void *thisInterface, QLPreviewRequestRef preview)
 {
     // Implement only if supported
 }
+
+
